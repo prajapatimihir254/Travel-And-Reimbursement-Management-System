@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["title"] = "Admin DashBoard";
+}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>Admin Dashboard - User List🛡️</h2>
+        <a asp-action="CreateUser" class="btn btn-primary">+ Add New User</a>
+        @* <p>Welcome @Context.Session.GetString("UserName")! You Can Manage Your Employe from Here</p> *@
+    </div>
+    
+    <table class="table table-bordered shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Emp Id</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach(var user in Model)
+            {
+                    <tr>
+                        <th>@user.EmployeeID</th>
+                        <th>@user.Fullname</th>
+                        <th>@user.Email</th>
+                        <th>
+                            <span class="badge bg-info text-dark">@user.Role</span>
+                        </th>
+                        <th>@user.Department</th>
+                    </tr>
+                }
+        </tbody>
+    </table>
+</div>
+@* <a class="btn btn-danger" asp-controller="Account" asp-action="Logout">Logout</a> *@
+

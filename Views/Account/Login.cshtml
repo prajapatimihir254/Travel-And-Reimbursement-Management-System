@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "_Layout"; // For Navbar
+    ViewData["Title"] = "Login";
+}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg border-0 rounded-lg p-4" style="width:400px;">
+        <div class="text-center mb-4">
+            <h3 class="fw-bold text-primary">BizTravel</h3>
+            <p>Login Here</p>
+        </div>
+
+        <form asp-controller="Account" asp-action="Login" method="post">
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+            }
+
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required />
+                <label for="email">Email-address</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="password" class="form-control" name="password" id="password" placeholder="password" required />
+                <label for="password">Password</label>
+            </div>
+
+            <button class="btn btn-primary w-100 py-2 fw-bold shadow-sm" type="submit">Login</button>
+
+            <div class="text-center mt-3">
+                <small> 
+                    @* <a asp-controller="Account" asp-action="Registraion" class="text-decoration-none fw-bold">Create Account</a> *@
+                    @* <a asp-controller="Account" asp-action="Registration" class="text-decoration-none fw-bold">Create Account</a> *@
+                </small>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    // Back button disable karne ke liye
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function () {
+        window.history.go(1);
+    };
+</script>

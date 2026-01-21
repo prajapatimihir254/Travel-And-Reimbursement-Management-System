@@ -1,0 +1,11 @@
+use BizTravelDB;
+go
+
+create table Users(
+	Id INT PRIMARY KEY IDENTITY(1,1),
+	Fullname NVARCHAR(50)NOT NULL,
+	EmployeeID NVARCHAR(10)NOT NULL,
+	Email NVARCHAR(50)NOT NULL,
+	Department NVARCHAR(20)NOT NULL,
+	Password NVARCHAR(MAX)NOT NULL
+);

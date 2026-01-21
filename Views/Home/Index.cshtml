@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* <div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div> *@
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Select Your Portal</h2>
+    
+    <div class="row text-center">
+        
+        <div class="col-md-3">
+            <div class="card shadow p-3 border-primary">
+                <h4>Admin</h4>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow p-3 border-success">
+                <h4>Manager</h4>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-success">Login</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow p-3 border-warning">
+                <h4>Accountant</h4>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-warning">Login</a>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow p-3 border-info">
+                <h4>Employee</h4>
+                <a asp-controller="Account" asp-action="Login" class="btn btn-info">Login</a>
+            </div>
+        </div>
+
+    </div>
+</div>

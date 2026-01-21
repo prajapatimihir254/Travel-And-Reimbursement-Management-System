@@ -1,0 +1,143 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model BizTravel.Models.TravelRequest
+
+<div class="container mt-4">
+    <h2>Raise New Travel Request</h2>
+    <form asp-action="RaiseClaim" method="post" class="card p-4 shadow-sm">
+        
+        <div class="mb-3">
+            <label>Travel Date</label>
+            <input asp-for="TravelDate" type="date" class="form-control"></input>
+            <span asp-validation-for="TravelDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+              <label>Country</label>
+              <select id="country" asp-for="Country" class="form-control">
+                  <option value="India">India</option>
+              </select>
+            <span asp-validation-for="Country" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>State</label>
+            <select id="stateSelect" asp-for="State" class="form-control" onchange="loadCities()">
+                <option value="">-- Select State --</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+                <option value="Delhi">Delhi</option>
+            </select>
+            <span asp-validation-for="State" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>City</label>
+            <select id="citySelect" asp-for="City" class="form-control">
+                <option value="">-- Select City --</option>
+            </select>
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+
+        <div class="form-floating mb-3">
+            <label asp-for="EstimatedAmount" class="form-label">Estimated Amount</label>
+            <div class="input-group">
+                <span class="input-group-text">₹</span>
+                <input asp-for="EstimatedAmount" type="number" class="form-control" id="amtInput" placeholder="Amount"></input>
+            </div>
+            <span asp-validation-for="EstimatedAmount" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label>Purpose of Visit</label>
+            <textarea asp-for="Purpose" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Purpose" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+        function loadCities() {
+            var stateElement = document.getElementById("stateSelect");
+            var selectedState = stateElement.value;
+            var citySelect = document.getElementById("citySelect");
+
+            // Reset city dropdown
+            citySelect.innerHTML = "<option value=''>-- Select City --</option>";
+
+            var citiesData = {
+                "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Nellore", "Tirupati"],
+            "Arunachal Pradesh": ["Itanagar", "Tawang", "Ziro", "Pasighat"],
+            "Assam": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat"],
+            "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur"],
+            "Chhattisgarh": ["Raipur", "Bhilai", "Bilaspur", "Korba"],
+            "Goa": ["Panaji", "Margao", "Vasco da Gama", "Mapusa"],
+            "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Gandhinagar"],
+            "Haryana": ["Gurugram", "Faridabad", "Panipat", "Ambala"],
+            "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Solan"],
+            "Jharkhand": ["Ranchi", "Jamshedpur", "Dhanbad", "Bokaro"],
+            "Karnataka": ["Bengaluru", "Mysuru", "Hubballi", "Mangaluru"],
+            "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur"],
+            "Madhya Pradesh": ["Indore", "Bhopal", "Jabalpur", "Gwalior", "Ujjain"],
+            "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Thane", "Nashik"],
+            "Manipur": ["Imphal", "Churachandpur", "Thoubal"],
+            "Meghalaya": ["Shillong", "Tura", "Jowai"],
+            "Mizoram": ["Aizawl", "Lunglei", "Saiha"],
+            "Nagaland": ["Kohima", "Dimapur", "Mokokchung"],
+            "Odisha": ["Bhubaneswar", "Cuttack", "Rourkela", "Puri"],
+            "Punjab": ["Ludhiana", "Amritsar", "Jalandhar", "Patiala"],
+            "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Ajmer", "Bikaner"],
+            "Sikkim": ["Gangtok", "Namchi", "Geyzing"],
+            "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Salem"],
+            "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Khammam"],
+            "Tripura": ["Agartala", "Udaipur", "Dharmanagar"],
+            "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi", "Agra", "Noida"],
+            "Uttarakhand": ["Dehradun", "Haridwar", "Roorkee", "Haldwani"],
+            "West Bengal": ["Kolkata", "Howrah", "Durgapur", "Siliguri"],
+            "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi"]
+            };
+
+            if (selectedState && citiesData[selectedState]) {
+                citiesData[selectedState].forEach(function(city) {
+                    var opt = document.createElement("option");
+                    opt.value = city;
+                    opt.innerHTML = city;
+                    citySelect.appendChild(opt);
+                });
+            }
+        }
+    </script>
+
+}

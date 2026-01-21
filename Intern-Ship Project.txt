@@ -1,0 +1,21 @@
+Travel And Reimbursement Management
+
+Module:-
+A. User/Employee Module
+Registration & Login:- Create Account, Login
+Booking: Book The Hotel, Trains, Bus, Cabs.
+Travel Request: Request For Travelling Place, Reason, Date.
+Upload the picture of the bill (GST Bill)
+
+B. Admin Module/Manager:
+Login
+User Management,
+House Rent, Report Generation of all Employee
+Approval Workflow: Approval or Reject The Request of user (with comments).
+
+C. Accounts/Finance Module
+Final Audit/Bill Payment: Check Bills Payment, Update The Reimbursement Status paid or not.
+
+
+
+
