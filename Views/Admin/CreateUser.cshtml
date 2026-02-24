@@ -3,55 +3,183 @@
     ViewData["title"] = "Create User";
 }
 
-<h2>Add New User</h2>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<form asp-action="CreateUser" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Fullname"></label>
-        <input asp-for="Fullname" class="form-control" />
-        <span asp-validation-for="Fullname" class="text-danger"></span>
-    </div>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f6f9;
+    }
 
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
+    .form-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background: white;
+        overflow: hidden;
+    }
 
-    <div class="form-Group">
-        <label>Role</label>
-        <select asp-for="Role" class="form-control">
-            <option value="">-- Select Role --</option>
-            <option value="Employee">Employee</option>
-            <option value="Manager">Manager</option>
-            <option value="Accountant">Accountant</option>
-            @* <option value="Admin">Admin</option> *@
-        </select>
-        <span asp-validation-for="Role" class="text-danger"></span>
-    </div>
+    .card-header-custom {
+        background: linear-gradient(135deg, #0d6efd, #0099ff);
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
 
-    <div class="form-group mb-3">
-        <label>Department</label>
-        <select asp-for="Department" class="form-control" required>
-            <option value="">-- Select Department --</option>
-            <option value="IT">IT</option>
-            <option value="Sales">Sales</option>
-            <option value="Accounts">Management</option>
-            <option value="HR">HR</option>
-        </select>
-    </div>
-    
-    <div class="form-group">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    
-    <button type="submit" class="btn btn-success mt-3">Create User</button>
-</form>
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 8px;
+    }
 
+    .input-group-text {
+        background-color: #f8f9fa;
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+        color: #0d6efd;
+    }
+
+    .form-control, .form-select {
+        border-left: none;
+        border-radius: 0 10px 10px 0;
+        padding: 12px;
+        border-color: #ced4da;
+    }
+
+        .form-control:focus, .form-select:focus {
+            box-shadow: none;
+            border-color: #86b7fe;
+        }
+
+    /* Fix for border when input group is focused */
+    .input-group:focus-within .input-group-text {
+        border-color: #86b7fe;
+    }
+
+    .btn-create {
+        background: linear-gradient(135deg, #198754, #20c997);
+        border: none;
+        border-radius: 50px;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+        .btn-create:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+            color: white;
+        }
+
+    .btn-back {
+        border-radius: 50px;
+        padding: 12px 30px;
+        font-weight: 600;
+        color: #6c757d;
+        background: #e9ecef;
+        border: none;
+        transition: all 0.3s;
+    }
+
+        .btn-back:hover {
+            background: #dee2e6;
+            color: #495057;
+        }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="form-card animate__animated animate__fadeInUp">
+
+                <div class="card-header-custom">
+                    <h3 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Add New User</h3>
+                    <p class="mb-0 opacity-75 small">Fill in the details to register a new employee</p>
+                </div>
+
+                <div class="card-body p-4">
+                    <form asp-action="CreateUser" method="post">
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Fullname" class="form-label">Full Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                    <input asp-for="Fullname" class="form-control" />
+                                </div>
+                                <span asp-validation-for="Fullname" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="Email" class="form-label">Email Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                    <input asp-for="Email" class="form-control" />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Role</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-shield-lock"></i></span>
+                                    <select asp-for="Role" class="form-select">
+                                        <option value="">-- Select Role --</option>
+                                        <option value="Employee">Employee</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="Accountant">Accountant</option>
+                                        @* <option value="Admin">Admin</option> *@
+                                    </select>
+                                </div>
+                                <span asp-validation-for="Role" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label class="form-label">Department</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                    <select asp-for="Department" class="form-select">
+                                        <option value="">-- Select Department --</option>
+                                        <option value="IT">IT</option>
+                                        <option value="Sales">Sales</option>
+                                        <option value="Accounts">Management</option>
+                                        <option value="HR">HR</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Password" class="form-label">Default Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                <input asp-for="Password" type="password" class="form-control" />
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a asp-action="Index" class="btn btn-back">
+                                <i class="bi bi-arrow-left me-1"></i> Back
+                            </a>
+                            <button type="submit" class="btn btn-create text-white shadow-sm">
+                                <i class="bi bi-check-circle-fill me-2"></i> Create User
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

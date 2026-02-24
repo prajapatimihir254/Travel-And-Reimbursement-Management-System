@@ -15,6 +15,27 @@ namespace BizTravel.Controllers
 
         public IActionResult Index()
         {
+            //check the user is looged in or not ?
+            var role = HttpContext.Session.GetString("UserRole");
+
+            if (role == "Employee")
+            {
+                // Note: Employee ka action 'Dashboard' hai (jo humne pehle set kiya tha)
+                return RedirectToAction("Dashboard", "Employee");
+            }
+            else if (role == "Manager")
+            {
+                return RedirectToAction("Index", "Manager");
+            }
+            else if (role == "Accountant")
+            {
+                return RedirectToAction("Index", "Accountant");
+            }
+            else if (role == "Admin")
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
             return View();
         }
 

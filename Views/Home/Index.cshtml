@@ -1,41 +1,138 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome";
 }
 
-@* <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div> *@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Select Your Portal</h2>
-    
-    <div class="row text-center">
-        
-        <div class="col-md-3">
-            <div class="card shadow p-3 border-primary">
-                <h4>Admin</h4>
-                <a asp-controller="Account" asp-action="Login" class="btn btn-primary">Login</a>
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f9fa; /* Light Grey Background */
+    }
+
+    .hero-text {
+        margin-bottom: 50px;
+        color: #2c3e50;
+    }
+
+    .hero-text h1 {
+        font-weight: 700;
+        font-size: 3rem;
+        background: -webkit-linear-gradient(#0d6efd, #00d2ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .role-card {
+        border: none;
+        border-radius: 20px;
+        background: white;
+        padding: 40px 20px;
+        transition: all 0.3s ease-in-out;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        height: 100%; /* Equal height for all cards */
+    }
+
+    /* Hover Effect: Card uthega aur shadow badhegi */
+    .role-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Icon Styling */
+    .icon-wrapper {
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
+        border-radius: 50%;
+        margin: 0 auto 20px auto;
+        font-size: 35px;
+        transition: transform 0.3s;
+    }
+
+    .role-card:hover .icon-wrapper {
+        transform: rotateY(180deg); /* Icon ghumega hover par */
+    }
+
+    /* Colors for specific roles */
+    .bg-admin { background-color: #e7f1ff; color: #0d6efd; }
+    .bg-manager { background-color: #d1e7dd; color: #198754; }
+    .bg-account { background-color: #fff3cd; color: #ffc107; }
+    .bg-employee { background-color: #cff4fc; color: #0dcaf0; }
+
+    .card-title {
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .card-desc {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+        min-height: 40px; /* Text align rakhne ke liye */
+    }
+
+    .btn-custom {
+        border-radius: 50px;
+        padding: 10px 30px;
+        font-weight: 600;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="text-center hero-text">
+        <h1 class="animate__animated animate__fadeInDown">BizTravel</h1>
+        <p class="lead text-muted animate__animated animate__fadeInUp">Select your role to access the dashboard</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+        <div class="col-md-3 col-sm-6">
+            <div class="role-card text-center">
+                <div class="icon-wrapper bg-admin">
+                    <i class="bi bi-shield-lock-fill"></i>
+                </div>
+                <h4 class="card-title text-primary">Admin</h4>
+                <p class="card-desc">Manage users, roles, and system configurations.</p>
+                <a asp-controller="Account" asp-action="Login" asp-route-role="Admin" class="btn btn-outline-primary btn-custom">Login</a>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card shadow p-3 border-success">
-                <h4>Manager</h4>
-                <a asp-controller="Account" asp-action="Login" class="btn btn-success">Login</a>
+        <div class="col-md-3 col-sm-6">
+            <div class="role-card text-center">
+                <div class="icon-wrapper bg-manager">
+                    <i class="bi bi-briefcase-fill"></i>
+                </div>
+                <h4 class="card-title text-success">Manager</h4>
+                <p class="card-desc">Approve requests and oversee team travel.</p>
+                <a asp-controller="Account" asp-action="Login" asp-route-role="Manager" class="btn btn-outline-success btn-custom">Login</a>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card shadow p-3 border-warning">
-                <h4>Accountant</h4>
-                <a asp-controller="Account" asp-action="Login" class="btn btn-warning">Login</a>
+        <div class="col-md-3 col-sm-6">
+            <div class="role-card text-center">
+                <div class="icon-wrapper bg-account">
+                    <i class="bi bi-calculator-fill"></i>
+                </div>
+                <h4 class="card-title text-warning">Accountant</h4>
+                <p class="card-desc">Process claims, settlements, and payments.</p>
+                <a asp-controller="Account" asp-action="Login" asp-route-role="Accountant" class="btn btn-outline-warning btn-custom">Login</a>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="card shadow p-3 border-info">
-                <h4>Employee</h4>
-                <a asp-controller="Account" asp-action="Login" class="btn btn-info">Login</a>
+        <div class="col-md-3 col-sm-6">
+            <div class="role-card text-center">
+                <div class="icon-wrapper bg-employee">
+                    <i class="bi bi-airplane-engines-fill"></i>
+                </div>
+                <h4 class="card-title text-info">Employee</h4>
+                <p class="card-desc">Book trips, submit bills, and track history.</p>
+                <a asp-controller="Account" asp-action="Login" asp-route-role="Employee" class="btn btn-outline-info btn-custom">Login</a>
             </div>
         </div>
 

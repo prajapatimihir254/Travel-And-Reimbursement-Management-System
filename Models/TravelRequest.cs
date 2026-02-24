@@ -14,6 +14,10 @@ namespace BizTravel.Models
         [DataType(DataType.Date)]
         public DateTime TravelDate { get; set; }
 
+        [Required(ErrorMessage = "Return Date Is Required")]
+        [DataType(DataType.Date)]
+        public DateTime ReturnDate { get; set; }
+
         [Required(ErrorMessage = "Purpose Is Required")]
         public string? Purpose { get; set; }
 
@@ -21,6 +25,7 @@ namespace BizTravel.Models
         [Range(100,10000000,ErrorMessage = "Amount Must Be Between 100 and 10,00,000")]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18,2)")] 
+
         public decimal EstimatedAmount { get; set; }
         public string Status { get; set; } = "Pending";
 
@@ -33,5 +38,11 @@ namespace BizTravel.Models
 
         [Required(ErrorMessage = "Please Select The City")]
         public string City { get; set; }
+        
+        public string? BillFilePath { get; set; }
+
+        public string? RejectionReason { get; set; }
+
+        public decimal FinalAmount {  get; set; }
     }
 }

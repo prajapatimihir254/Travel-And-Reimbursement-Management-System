@@ -1,0 +1,337 @@
+﻿@model IEnumerable<dynamic>
+@{
+    ViewData["Title"] = "Travel History";
+}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f7f6;
+    }
+
+    /* Main Card Styling */
+    .history-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        background: white;
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+
+    /* Header Styling */
+    .card-header-custom {
+        background: white;
+        padding: 20px 30px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .page-title {
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+    }
+
+    /* Search Bar Styling */
+    .search-box {
+        position: relative;
+        width: 300px;
+    }
+
+        .search-box input {
+            width: 100%;
+            border-radius: 50px;
+            padding: 10px 20px 10px 45px;
+            border: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+            transition: 0.3s;
+            outline: none;
+        }
+
+            .search-box input:focus {
+                background-color: white;
+                box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+                border-color: #0d6efd;
+            }
+
+    .search-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        pointer-events: none;
+    }
+
+    /* Table Styling */
+    .table thead th {
+        background-color: #f1f5f9;
+        color: #495057;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border: none;
+        padding: 15px;
+        text-transform: uppercase;
+    }
+
+    .table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+        font-size: 0.95rem;
+        border-bottom: 1px solid #f8f9fa;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f0f4ff;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .badge-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .badge-approved {
+        background-color: #cff4fc;
+        color: #055160;
+    }
+
+    .badge-settled {
+        background-color: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .badge-rejected {
+        background-color: #f8d7da;
+        color: #842029;
+    }
+
+    /* Buttons */
+    .btn-view {
+        background-color: #e7f1ff;
+        color: #0d6efd;
+        border: none;
+        padding: 6px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: 0.3s;
+    }
+
+        .btn-view:hover {
+            background-color: #0d6efd;
+            color: white;
+        }
+</style>
+
+<div class="container-fluid px-4 mt-4 mb-5">
+
+    <div class="history-card animate__animated animate__fadeInUp">
+
+        <div class="card-header-custom">
+            <h2 class="page-title">
+                <span class="bg-primary text-white rounded-circle p-2 me-2 d-flex align-items-center justify-content-center" style="width:45px; height:45px;">
+                    <i class="bi bi-journal-check"></i>
+                </span>
+                Tracking History
+            </h2>
+
+            <div class="search-box">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search Destination,Purpose..." />
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Email ID</th>
+                        <th>Destination</th>
+                        <th>Purpose</th>
+                        <th>Amount</th>
+                        <th>Duration (From-To)</th>
+                        <th>Bill</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="fw-bold text-dark">
+                                    <i class="bi bi-envelope me-1 text-muted"></i> @item.EmployeeEmail
+                                </div>
+                            </td>
+
+                            <td>
+                                <span class="fw-bold text-primary">@item.City</span><br>
+                                <small class="text-muted">@item.State, @item.Country</small>
+                            </td>
+
+                            <td>
+                                <span class="d-inline-block text-truncate" style="max-width: 150px;" title="@item.Purpose">
+                                    @item.Purpose
+                                </span>
+                            </td>
+
+                            <td class="fw-bold text-success">
+                                @if(item.Status == "Settled")
+                                {
+                                    //settle or adjusted amount
+                                    <div class="text-success">₹@item.FinalAmount</div>
+                                    <small class="text-muted" style="font-size:0.7rem;">Amount Adjusted</small>
+                                }
+                                else
+                                {
+                                    //normal settle amount
+                                    <span class="text-dark">₹@item.EstimatedAmount</span>
+                                }
+                            </td>
+
+                            <td>
+                                <div class="small">
+                                    <span class="text-primary fw-bold">Departure Date: @item.TravelDate.ToString("dd-MM-yyyy")</span>
+                                    </div>
+                                <div class="small">
+                                    <span class="text-danger fw-bold">Return Date: @item.ReturnDate.ToString("dd-MM-yyyy")</span>
+                                </div>
+                            </td>
+
+
+                            <td>
+                                <button type="button" class="btn-view" onclick="showBill('@item.BillFilePath')">
+                                    <i class="bi bi-eye"></i> View
+                                </button>
+                            </td>
+
+                            <td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <span class="status-badge badge-pending"><i class="bi bi-hourglass-split"></i> Pending</span>
+                                }
+                                else if (item.Status == "Approved")
+                                {
+                                    <span class="status-badge badge-approved"><i class="bi bi-check-circle"></i> Approved</span>
+                                }
+                                else if (item.Status == "Settled")
+                                {
+                                    <span class="status-badge badge-settled"><i class="bi bi-cash-stack"></i> Settled</span>
+                                }
+                                else if (item.Status == "Rejected")
+                                {
+                                    <span class="status-badge badge-rejected"><i class="bi bi-x-circle"></i> Rejected</span>
+                                    <br />
+                                    @* <small class="text-danger fw-bold">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        Reason: @item.RejectionReason
+                                    </small> *@
+                                    <div class="mt-1 text-danger small">
+                                        Reason: @item.RejectionReason
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="billModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title"><i class="bi bi-paperclip me-2"></i>Bill Attachment</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center bg-light p-4">
+                <div id="billContent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function showBill(path)
+        {
+            console.log("Path Recived:" + path);
+            var content = document.getElementById('billContent');
+
+            if(!path || path === "" || path === "null")
+            {
+                content.innerHTML = "<div class = 'alert alert-warming'>No Bill Uploaded By Employee</div>"
+            }
+            else
+            {
+                if(path.toLowerCase().endsWith('.pdf'))
+                {
+                    content.innerHTML = `<embed src = "${path}" type = "application/pdf" width="100%" height="500px">`;
+                }
+                else
+                {
+                    content.innerHTML = `<img src = "${path}" class="img-fluid rounded shadow" style = "max-height:500px;">`;
+                }
+            }
+
+            var modalElement = document.getElementById('billModal');
+            if(modalElement)
+            {
+                var myModal = new bootstrap.Modal(modalElement);
+                myModal.show();
+            }
+            else{
+                console.error("Modal element 'billModal' not found in html");
+            }
+        }
+    </script>
+    <script>
+        function filterTable(){
+            var input,filter,table,tr,td,i,txtvalue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("historyTable");
+            tr = table.getElementsByTagName("tr");
+
+            //loop for the table row
+            for(i = 1; i < tr.length; i++){
+                tr[i].style.display = "none";
+                td = tr[i].getElementsByTagName("td");
+                //find in every coloum
+                for(var j=0; j < td.length; j++){
+                    if(td[j]){
+                        txtvalue = td[j].textContent || td[j].innerText;
+                        if(txtvalue.toUpperCase().indexOf(filter) > -1)
+                        {
+                            tr[i].style.display = "";
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+}

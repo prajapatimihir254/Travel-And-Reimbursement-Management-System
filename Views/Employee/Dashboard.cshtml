@@ -1,61 +1,283 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<BizTravel.Models.TravelRequest>
 @{
     ViewData["title"] = "Employee Dashboard";
+
+    // Quick Stats Calculation
+    var totalRequests = Model.Count();
+    var pendingRequests = Model.Count(x => x.Status == "Pending");
+    var approvedRequests = Model.Count(x => x.Status == "Approved" || x.Status == "Settled");
 }
-<div class="jumbotron p-4 mb-4 bg-light rounded shadow-sm">
-    <div class="d-flex justify-content-between align-items-center">
-        <div>
-            <h1 class="display-5">Employee Dashboard</h1>
-            <p class="lead">Welcome back,<strong>@ViewBag.Fullname</strong></p>
-        </div>
-        <div class="text-end">
-            <h5 class="text-primary">Emp Id:<span class="badge bg-primary">@ViewBag.EmpId</span></h5>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f4f7f6;
+    }
+
+    /* 1. Welcome Banner */
+    .dashboard-banner {
+        background: linear-gradient(135deg, #0d6efd, #0099ff);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 30px rgba(13, 110, 253, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .banner-content h1 {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    .banner-content p {
+        opacity: 0.9;
+        margin-bottom: 0;
+    }
+
+    .emp-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 8px 15px;
+        border-radius: 50px;
+        backdrop-filter: blur(5px);
+        font-size: 0.9rem;
+    }
+
+    /* 2. Mini Stats Cards */
+    .mini-card {
+        background: white;
+        border-radius: 15px;
+        padding: 20px;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        display: flex;
+        align-items: center;
+        transition: transform 0.3s;
+    }
+
+        .mini-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .mini-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-right: 15px;
+    }
+
+    .bg-icon-primary {
+        background: #e7f1ff;
+        color: #0d6efd;
+    }
+
+    .bg-icon-warning {
+        background: #fff3cd;
+        color: #ffc107;
+    }
+
+    .bg-icon-success {
+        background: #d1e7dd;
+        color: #198754;
+    }
+
+    /* 3. Table Styling */
+    .table-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        overflow: hidden;
+    }
+
+    .card-header-custom {
+        background: white;
+        padding: 20px 25px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .table thead th {
+        background: #f8f9fa;
+        color: #6c757d;
+        font-weight: 600;
+        border: none;
+        padding: 15px;
+    }
+
+    .table tbody td {
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .btn-raise-claim {
+        background: linear-gradient(135deg, #0d6efd, #0056b3);
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(13, 110, 253, 0.3);
+    }
+
+        .btn-raise-claim:hover {
+            color: white;
+            transform: scale(1.05);
+        }
+</style>
+
+<div class="container mt-4 mb-5">
+
+    <div class="dashboard-banner animate__animated animate__fadeInDown">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="banner-content">
+                <h1>Hello, @ViewBag.Fullname! 👋</h1>
+                <p>Track your travel requests and reimbursements.</p>
+                <small class="opacity-75"><i class="bi bi-envelope me-2"></i>@Context.Session.GetString("UserEmail")</small>
+            </div>
+            <div class="text-end d-none d-md-block">
+                <span class="emp-badge">
+                    <i class="bi bi-person-badge me-2"></i>Emp ID: <strong>@ViewBag.EmpId</strong>
+                </span>
+            </div>
         </div>
     </div>
-    @* <a class="btn btn-danger" asp-controller="Account" asp-action="Logout">Logout</a> *@
-    <a asp-action="RaiseClaim" class="btn btn-success">Raise New Travel Claim</a>
-</div>
 
-@model List<BizTravel.Models.TravelRequest>
-<div class="container mt-5">
-    <div class="card shadow">
-        
-        <div class="card-header bg-primary text-white d-flex justify-content-between">
-            <h4>My Travel Requests</h4>
-            <a asp-action="RaiseClaim" class="btn btn-light btn-sm">+Raise New Claim</a>
+    <div class="row g-4 mb-4 animate__animated animate__fadeInUp">
+        <div class="col-md-4">
+            <div class="mini-card">
+                <div class="mini-icon bg-icon-primary"><i class="bi bi-folder2-open"></i></div>
+                <div>
+                    <h5 class="mb-0 fw-bold">@totalRequests</h5>
+                    <small class="text-muted">Total Requests</small>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <table class="table table-hover table-bordered">
-                <thead class="table-dark">
-    <tr>
-        <th>Date</th>
-        @* <th>Destination</th> *@
-        <th>Location (Country/State/City)</th>
-        <th>Purpose</th>
-        <th>Amount</th>
-        <th>Status</th>
-    </tr>
+        <div class="col-md-4">
+            <div class="mini-card">
+                <div class="mini-icon bg-icon-warning"><i class="bi bi-hourglass-split"></i></div>
+                <div>
+                    <h5 class="mb-0 fw-bold">@pendingRequests</h5>
+                    <small class="text-muted">Pending Approvals</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="mini-card">
+                <div class="mini-icon bg-icon-success"><i class="bi bi-check-circle"></i></div>
+                <div>
+                    <h5 class="mb-0 fw-bold">@approvedRequests</h5>
+                    <small class="text-muted">Approved & Settled</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+        <div class="card-header-custom">
+            <h4 class="mb-0 fw-bold text-secondary">My Travel History</h4>
+            <a asp-action="RaiseClaim" class="btn btn-raise-claim">
+                <i class="bi bi-plus-lg me-1"></i> Raise New Claim
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th>Duration (From-To)</th>
+                        <th>Destination</th>
+                        <th>Purpose</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
                 </thead>
                 <tbody>
-    @foreach(var item in Model){
-        <tr>
-            <td>@item.TravelDate.ToShortDateString()</td>
-            @* <td>@item.Destination</td> *@
-            <td>
-                @item.Country,@item.State,@item.City
-            </td>
-            
-            <td>@item.Purpose</td>
-            <td>@item.EstimatedAmount.ToString("N2")₹</td>
-            <td>
-                <span class="badge@(item.Status == "Pending" ? "bg-warning" : "bg-success")">@item.Status</span>
-                </td>
-        </tr>
-    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="small">
+                                    <span class="text-primary fw-bold">Departure Date: @item.TravelDate.ToString("dd-MM-yyyy")</span>
+                                </div>
+                                <div class="small">
+                                    <span class="text-danger fw-bold">Return Date: @item.ReturnDate.ToString("dd-MM-yyyy")</span>
+                                </div>
+                            </td>
+
+                            <td>
+                                <i class="bi bi-geo-alt-fill text-danger me-1"></i>
+                                @item.Country @item.City, @item.State
+                            </td>
+                            <td>@item.Purpose</td>
+                            <td>
+                                @if (item.Status == "Settled")
+                                {
+                                    <span class="fw-bold text-success">₹@item.FinalAmount.ToString("N2")</span>
+                                    <div style="font-size:0.7rem;" class="text-muted">Final Amount</div>
+                                }
+                                else
+                                {
+                                    <span class="fw-bold text-dark">₹@item.EstimatedAmount.ToString("N2")</span>
+                                    <div style="font-size:0.7rem;" class="text-muted">Estimated</div>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Status == "Pending")
+                                {
+                                    <span class="badge bg-warning text-dark rounded-pill px-3 py-2">
+                                        <i class="bi bi-clock me-1"></i> Pending
+                                    </span>
+                                }
+                                else if (item.Status == "Approved")
+                                {
+                                    <span class="badge bg-info text-dark rounded-pill px-3 py-2">
+                                        <i class="bi bi-check-lg me-1"></i> Approved
+                                    </span>
+                                }
+                                else if (item.Status == "Settled")
+                                {
+                                    <span class="badge bg-success rounded-pill px-3 py-2">
+                                        <i class="bi bi-currency-dollar me-1"></i> Settled
+                                    </span>
+                                    @if (item.FinalAmount != item.EstimatedAmount)
+                                    {
+                                        <div class="mt-1 text-success" style="font-size:0.7rem;">
+                                            <i class="bi bi-info-circle"></i> Adjusted
+                                        </div>
+                                    }
+                                }
+                                else if (item.Status == "Rejected")
+                                {
+                                    <span class="badge bg-danger rounded-pill px-3 py-2">
+                                        <i class="bi bi-x-circle me-1"></i> Rejected
+                                    </span>
+                                    <div class="mt-1 text-danger small">
+                                        Reason: @item.RejectionReason
+                                    </div>
+                                }
+                            </td>
+                        </tr>
+                    }
                 </tbody>
-</table>
+            </table>
         </div>
+        @if (Model.Count == 0)
+        {
+            <div class="text-center py-5">
+                <div class="text-muted mb-3" style="font-size: 3rem; opacity:0.3;">
+                    <i class="bi bi-suitcase-lg"></i>
+                </div>
+                <h5 class="text-muted">No travel requests found.</h5>
+                <p class="text-muted small">Ready for your first trip? Click 'Raise New Claim' to start.</p>
+            </div>
+        }
     </div>
 </div>

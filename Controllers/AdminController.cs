@@ -2,6 +2,8 @@
 using BizTravel.Data;
 using BizTravel.Models;
 using Microsoft.AspNetCore.Identity;
+using Rotativa.AspNetCore;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace BizTravel.Controllers
 {
@@ -14,21 +16,43 @@ namespace BizTravel.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
         public IActionResult Index()
         {
-            //check the user is logged in or user is admin or not
-            //view all user at dashboard
-            //if (HttpContext.Session.GetString("UserRole") != "Admin")
-            //{
-            //    return RedirectToAction("Login", "Account");
-            //}
+            //4 cards at dashboard
+            var stats = new AdminDashboardVM();
 
-            //var allUsers = _context.Users.ToList(); //List of all user
-            //return View(allUsers);
-            if(string.IsNullOrEmpty(HttpContext.Session.GetString("UserRole")) || 
+            //Total claim count and status wise count
+            stats.TotalRequests = _context.TravelRequest.Count();
+            stats.PendingRequests = _context.TravelRequest.Count(x => x.Status == "Pending");
+            stats.SettledRequests = _context.TravelRequest.Count(x => x.Status == "Settled");
+            stats.RejectedRequests = _context.TravelRequest.Count(x => x.Status == "Rejected");
+
+            //total amount spend(settle claim's Total)
+            stats.TotalSettledAmount = _context.TravelRequest
+                                   .Where(x => x.Status == "Settled")
+                                   .Sum(x => (decimal?)x.FinalAmount) ?? 0m;
+
+            //Monthly Expense Logic
+            stats.MonthlyExpenses = _context.TravelRequest
+                .Where(x => x.Status == "Settled")
+                .GroupBy(x => new {x.TravelDate.Month, x.TravelDate.Year })
+                .Select(g => new MonthlyExpenseVM
+                {
+                    //for fetch the month name
+                    MonthName = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key.Month),
+                    TotalAmount = g.Sum(x => x.FinalAmount)
+                })
+                .ToList();
+            
+            stats.UserList = _context.Users.ToList(); 
+            
+            
+            //admin check
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserRole")) ||
                 HttpContext.Session.GetString("UserRole") != "Admin")
             {
-                return RedirectToAction("Login","Account");
+                return RedirectToAction("Login", "Account");
             }
             // not save the page at browzer
             Response.Headers["Cache-Control"] = "no-cache,no-store,must-revalidate";
@@ -36,7 +60,7 @@ namespace BizTravel.Controllers
             Response.Headers["Expires"] = "-1";
 
             var allUsers = _context.Users.ToList();
-            return View(allUsers);
+            return View(stats);
         }
 
         //creating the new users(GET)
@@ -73,6 +97,33 @@ namespace BizTravel.Controllers
                 }
             }
             return View(newUser);
+        }
+
+        public IActionResult DownloadReport()
+        {
+            //4 cards at dashboard
+            var stats = new AdminDashboardVM();
+
+            //Total claim count and status wise count
+            stats.TotalRequests = _context.TravelRequest.Count();
+            stats.PendingRequests = _context.TravelRequest.Count(x => x.Status == "Pending");
+            stats.SettledRequests = _context.TravelRequest.Count(x => x.Status == "Settled");
+            stats.RejectedRequests = _context.TravelRequest.Count(x => x.Status == "Rejected");
+
+            //total amount spend(settle claim's Total)
+            stats.TotalSettledAmount = _context.TravelRequest
+                                   .Where(x => x.Status == "Settled")
+                                   .Sum(x => (decimal?)x.FinalAmount) ?? 0m;
+            stats.UserList = _context.Users.ToList();
+
+            //pdf view return
+            return new ViewAsPdf("Report", stats)
+            {
+                FileName = "Travel_Report.pdf",
+                PageSize = Rotativa.AspNetCore.Options.Size.A4,
+                PageOrientation  = Rotativa.AspNetCore.Options.Orientation.Portrait,
+                CustomSwitches = "--print-media-type --no-background",
+            };
         }
 
         public IActionResult Logout()

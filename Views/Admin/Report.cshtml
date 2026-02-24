@@ -1,0 +1,241 @@
+﻿@model BizTravel.Models.AdminDashboardVM
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>BizTravel Official Report</title>
+
+    <style>
+        /* General Page Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Header Section */
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #0d6efd; /* Blue Line */
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0d6efd;
+            text-transform: uppercase;
+        }
+
+        .report-title {
+            text-align: right;
+        }
+
+            .report-title h2 {
+                margin: 0;
+                font-size: 20px;
+                color: #444;
+            }
+
+        .report-meta {
+            font-size: 12px;
+            color: #777;
+            margin-top: 5px;
+        }
+
+        /* Summary Cards Section */
+        .summary-box {
+            width: 100%;
+            margin-bottom: 40px;
+            display: table; /* Using table layout for PDF safety */
+            border-collapse: separate;
+            border-spacing: 20px 0;
+        }
+
+        .kpi-card {
+            display: table-cell;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            width: 33%;
+        }
+
+        .kpi-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #6c757d;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .kpi-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .amount-highlight {
+            color: #198754; /* Green for money */
+        }
+
+        /* Table Styling */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+            .styled-table thead tr {
+                background-color: #0d6efd;
+                color: #ffffff;
+                text-align: left;
+            }
+
+            .styled-table th, .styled-table td {
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+            }
+
+            .styled-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+
+                .styled-table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3; /* Zebra Striping */
+                }
+
+                .styled-table tbody tr:last-of-type {
+                    border-bottom: 2px solid #0d6efd;
+                }
+
+        /* Footer */
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .role-admin {
+            background-color: #cfe2ff;
+            color: #084298;
+        }
+
+        .role-manager {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .role-accountant {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+
+        .role-employee {
+            background-color: #cff4fc;
+            color: #055160;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="report-header">
+        <div class="brand-name">
+            ✈️ BizTravel
+        </div>
+        <div class="report-title">
+            <h2>Travel Reimbursement Report</h2>
+            <div class="report-meta">Generated On: @DateTime.Now.ToString("dd MMM yyyy, hh:mm tt")</div>
+        </div>
+    </div>
+
+    <div class="summary-box">
+        <div class="kpi-card">
+            <div class="kpi-title">Total Requests</div>
+            <p class="kpi-value">@Model.TotalRequests</p>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-title">Settled Claims</div>
+            <p class="kpi-value">@Model.SettledRequests</p>
+        </div>
+        <div class="kpi-card" style="background-color: #e6fffa; border-color: #b2f5ea;">
+            <div class="kpi-title">Total Settled Amount</div>
+            <p class="kpi-value amount-highlight">₹@Model.TotalSettledAmount.ToString("N2")</p>
+        </div>
+    </div>
+
+    <h3 style="color: #444; margin-bottom: 15px;">User Directory & Roles</h3>
+
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Emp ID</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>Role</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.UserList)
+            {
+                <tr>
+                    <td><strong>@user.EmployeeID</strong></td>
+                    <td>@user.Fullname</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @if (user.Role == "Admin")
+                        {
+                            <span class="badge role-admin">Admin</span>
+                        }
+                        else if (user.Role == "Manager")
+                        {
+
+                            <span class="badge role-manager">Manager</span>
+                        }
+                        else if (user.Role == "Accountant")
+                        {
+
+                            <span class="badge role-accountant">Accountant</span>
+                        }
+                        else
+                        {
+
+                            <span class="badge role-employee">Employee</span>
+                        }
+                    </td>
+                    <td>@user.Department</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="footer">
+        <p>CONFIDENTIAL: This report is generated by BizTravel Admin System. <br /> For internal use only.</p>
+    </div>
+
+</body>
+</html>
