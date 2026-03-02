@@ -7,9 +7,11 @@ namespace BizTravel.Controllers
     public class AccountantController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public AccountantController(ApplicationDbContext context)
+        private readonly BizTravel.Models.EmailSender _emailSender;
+        public AccountantController(ApplicationDbContext context,BizTravel.Models.EmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
         public IActionResult Index()
         {
@@ -27,14 +29,22 @@ namespace BizTravel.Controllers
             return View(ApprovedRequests);
         }
         [HttpPost]
-        public IActionResult SettleClaim(int requestId,decimal finalAmount)
-        {
+        public async Task<IActionResult> SettleClaim(int requestId,decimal finalAmount)
+        {   
             var request = _context.TravelRequest.Find(requestId);
             if (request != null)
             {
                 request.Status = "Settled"; //when the payment is settled
                 request.FinalAmount = finalAmount; //save final amount
                 _context.SaveChanges();
+
+                //send notification to employee
+                string subject = "Trip Settled: Payment Processed";
+                string message = $@"<h3>Hello Employee,</h3>
+                                 <p>Good News! Your Travel Request For <b>{request.City}<b> has been settled.</p>
+                                 <p><b>Final Amount:<b> ₹{finalAmount}</p>
+                                 <p>Check Your Dashboard For Details.</p>";
+                await _emailSender.SendEmailAsync(request.EmployeeEmail,subject,message);
             }
             return RedirectToAction("Index");
         }

@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//add email-sender service
+builder.Services.AddTransient<BizTravel.Models.EmailSender>();
+
 //add session
 builder.Services.AddSession(Option =>
 {
@@ -19,6 +22,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add services to the container
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
 builder.Services.AddSession(Options =>
 {
     Options.IdleTimeout = TimeSpan.FromMinutes(30);

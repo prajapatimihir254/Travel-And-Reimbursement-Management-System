@@ -15,6 +15,7 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\Rotativa\wkhtmltopdf.exe
 wwwroot\uploads\0bf2a8c8-d2cb-4feb-9641-23b3a06c519e_10914633.jpg
+wwwroot\uploads\0eacd5ce-65b4-40cc-92fb-f3dc1b4678e1_signature.jpg
 wwwroot\uploads\0faad093-69f4-4b8e-9ee3-66f092e6b733_10914633.jpg
 wwwroot\uploads\12a28494-d0bb-4e86-99b4-d31534270380_10914633.jpg
 wwwroot\uploads\15a5e56b-c5ca-48c1-a194-9a86992bc4c5_10914633.jpg
@@ -50,6 +51,7 @@ wwwroot\uploads\a859113d-7500-4900-9c79-4300dd92873e_10914633.jpg
 wwwroot\uploads\a9a35c39-26e8-442f-8921-324153bf8b4e_10914633.jpg
 wwwroot\uploads\ab8015f4-6dbb-44d2-bd9a-2ba30fd90f70_10914633.jpg
 wwwroot\uploads\b66e6846-3b76-40f3-adc0-1ea04061b411_10914633.jpg
+wwwroot\uploads\b7d28aa3-4f07-41ff-bd99-a9b47a4c96d4_Aadhar Card_1.jpg
 wwwroot\uploads\b848016b-72c0-4eb5-a656-59ab4f63662d_10914633.jpg
 wwwroot\uploads\bbaa06e2-a80d-4ded-95f1-9a7d1a0338bd_PassPort Size Mihir.jpg
 wwwroot\uploads\c381f522-9e12-41ee-8dad-b1886f984184_10914633.jpg
