@@ -15,11 +15,13 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\Rotativa\wkhtmltopdf.exe
 wwwroot\uploads\0bf2a8c8-d2cb-4feb-9641-23b3a06c519e_10914633.jpg
+wwwroot\uploads\0c6f7b84-5ae3-4f84-84a9-795b2075be34_signature.jpg
 wwwroot\uploads\0eacd5ce-65b4-40cc-92fb-f3dc1b4678e1_signature.jpg
 wwwroot\uploads\0faad093-69f4-4b8e-9ee3-66f092e6b733_10914633.jpg
 wwwroot\uploads\12a28494-d0bb-4e86-99b4-d31534270380_10914633.jpg
 wwwroot\uploads\15a5e56b-c5ca-48c1-a194-9a86992bc4c5_10914633.jpg
 wwwroot\uploads\16ca8e4e-b78e-4c74-b2fa-3be7b3e604d6_10914633.jpg
+wwwroot\uploads\174d6ac8-c384-4996-b08f-c4c77fb196bc_signature.jpg
 wwwroot\uploads\1f412898-2f26-404a-8f07-e98a2402aa34_10914633.jpg
 wwwroot\uploads\20add6aa-e943-45e4-80e6-80098a4a9d61_10914633.jpg
 wwwroot\uploads\274ea18c-8d7c-422e-b7de-faf9b4cba0e8_10914633.jpg
@@ -28,6 +30,7 @@ wwwroot\uploads\31ae415b-fac0-4a59-b7cf-c434ee355a02_10914633.jpg
 wwwroot\uploads\41e780b0-9440-4a65-9ef2-44d7acd5dc86_10914633.jpg
 wwwroot\uploads\443223c1-211d-4d50-845b-a016d13c7ea3_Mihir Prajapati-Resume.pdf
 wwwroot\uploads\4bb4e218-a7d7-4f25-ab53-14ad87c74b72_10914633.jpg
+wwwroot\uploads\5a874227-3049-4c8f-b573-d17f1c1c51f6_signature.jpg
 wwwroot\uploads\5cb4b057-81b5-44f5-9e64-4ea246903b5c_10914633.jpg
 wwwroot\uploads\65f2d6ce-9640-4d66-924e-e81d2d5fde14_10914633.jpg
 wwwroot\uploads\66f29989-e629-473c-82a2-d08840345e6a_10914633.jpg
@@ -59,6 +62,7 @@ wwwroot\uploads\cd518783-8a3d-4b4f-8b5b-4b7f1d37c292_10914633.jpg
 wwwroot\uploads\cfb4d846-af3f-4386-89fb-4f038ecafcbb_10914633.jpg
 wwwroot\uploads\d390651c-6a4e-4eca-a8f5-3378c75db153_10914633.jpg
 wwwroot\uploads\d76e7d8c-6e3b-497b-8bdf-9074e7611bc9_10914633.jpg
+wwwroot\uploads\db03481c-9722-4084-94ef-aac05f5ba704_10th Marksheet.jpg
 wwwroot\uploads\dca6767a-fb3e-4ddc-8264-9feac67285d0_10914633.jpg
 wwwroot\uploads\e16da794-a75d-4443-a85a-e4ca0b783323_10914633.jpg
 wwwroot\uploads\ecdd9668-3439-43c5-b265-4fe913ef1b0d_10914633.jpg

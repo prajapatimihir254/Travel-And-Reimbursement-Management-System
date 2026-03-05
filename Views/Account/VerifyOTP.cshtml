@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-body p-5">
+                    <div class="text center mb-4">
+                        <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height:60px;">
+                            <i class="bi bi-shield-lock-fill fs-3"></i>
+                        </div>
+                        <h3 class="fw-bold">Verify OTP</h3>
+                        <p class="text-muted small">We will sent 6-digit code to <b>@ViewBag.Email</b></p>
+                    </div>
+                
+                <form asp-action="VerifyOTP" method="post">
+                    <input type="hidden" name="email" value="@ViewBag.Email"/>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-600">Enter 6-Digit OTP</label>
+                        <input type="text" name="otp" class="form-control form-control-lg text-center fw-bold" maxlength="6" required style="letter-spacing: 5px;"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <lable class="form-label fw-600">New Password</lable>
+                        <input type="password" name="newPassword" class="form-control" required/>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill shadow-sm mt-3">
+                        Reset Password<i class="bi bi-arrow right-short"></i>                 
+                    </button>
+                </form>
+
+                @if(ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger mt-3 border-0 small py-2">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>@ViewBag.Error
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+</div>

@@ -1,18 +1,23 @@
-﻿using BizTravel.Data;
+﻿                                                                                                using Azure.Core;
+using BizTravel.Data;
 using BizTravel.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Runtime.InteropServices.WindowsRuntime;
 namespace BizTravel.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly BizTravel.Models.EmailSender _emailSender;
 
         //to connect with database
-        public AccountController(ApplicationDbContext context)
+        public AccountController(ApplicationDbContext context,BizTravel.Models.EmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -99,6 +104,64 @@ namespace BizTravel.Controllers
             TempData["SuccessMessage"] = "You have been logged out successfully.";
             return RedirectToAction("Index","Home");
         }
-        
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            //finding the email in database
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+            if (user != null) 
+            {
+                //6-digit otp generation
+                string otp = new Random().Next(100000,999999).ToString();
+                user.ResetOTP = otp;
+                _context.SaveChanges();
+
+                string subject = "Your Otp For Password Reset";
+                string message = $"<h3>Hello,</h3><p>Your Otp For To Reset Password Is:<b>{otp}</b></p>";
+                                 
+                await _emailSender.SendEmailAsync(email, subject, message);
+
+                //redirect to the otp sender page
+                return RedirectToAction("VerifyOtp", new { email = email });
+                //ViewBag.Message = "Password Has Been Sent To Your Email Address";
+            }
+                ViewBag.Error = "Eamil Address Not Found";
+                return View();
+        }
+
+        [HttpGet]
+        public IActionResult VerifyOTP(string email)
+        {
+            ViewBag.Email = email;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> VerifyOTP(string email, string otp, string newPassword)
+        {
+            if (string.IsNullOrEmpty(newPassword) || newPassword.Length < 8)
+            {
+                ViewBag.Error = "Password must be 8 characters long";
+                ViewBag.Email = email;
+                return View();
+            }
+            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.ResetOTP == otp);
+            if (user != null)
+            {
+                user.Password = newPassword; //update password
+                user.ResetOTP = null; //clear otp for the safety
+                _context.SaveChanges();
+                return RedirectToAction("Login", new { msg = "Password Reset Successfully" });
+            }
+            ViewBag.Error = "Invalid otp";
+            ViewBag.Error = email;
+            return View();
+        }
     }
 }
