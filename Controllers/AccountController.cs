@@ -151,16 +151,25 @@ namespace BizTravel.Controllers
                 ViewBag.Email = email;
                 return View();
             }
-            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.ResetOTP == otp);
+
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+            //var user = _context.Users.FirstOrDefault(u => u.Email == email && u.ResetOTP == otp);
+
             if (user != null)
             {
+                if(user.ResetOTP != otp)
+                {
+                    ViewBag.Error = "Wrong Otp! Please Check Your Email And Try Again";
+                    ViewBag.Email = email;
+                    return View();
+                }
+
                 user.Password = newPassword; //update password
                 user.ResetOTP = null; //clear otp for the safety
                 _context.SaveChanges();
                 return RedirectToAction("Login", new { msg = "Password Reset Successfully" });
             }
-            ViewBag.Error = "Invalid otp";
-            ViewBag.Error = email;
+            ViewBag.Error = "Session Expired or User not found";
             return View();
         }
     }
