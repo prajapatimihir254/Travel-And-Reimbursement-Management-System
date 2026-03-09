@@ -42,6 +42,7 @@ wwwroot\uploads\788c0243-f64d-4ab2-ba8f-7a0e99c29c0a_10914633.jpg
 wwwroot\uploads\79b3d9fd-7f07-4064-b8b5-7d5fa68d8793_10914633.jpg
 wwwroot\uploads\7b12ea3f-dc56-4346-b2d4-564f7c099b5d_10914633.jpg
 wwwroot\uploads\7ccf06a5-9ee3-4372-8cfa-a883afbbf7ab_10914633.jpg
+wwwroot\uploads\839aaa49-4cb7-4355-b699-b8a3e15046c0_WhatsApp Image 2025-09-07 at 19.33.57_d936783c.jpg
 wwwroot\uploads\83b9f9b5-48b5-4750-856c-27422a04f852_10914633.jpg
 wwwroot\uploads\8962d106-cf1f-4181-a007-92c515ca45d3_10914633.jpg
 wwwroot\uploads\8ad55c15-b1fa-46c5-91f4-2470938edc5b_10914633.jpg
@@ -53,6 +54,7 @@ wwwroot\uploads\a80f1eda-fe3b-41cd-a6e3-f17945e9741c_10914633.jpg
 wwwroot\uploads\a859113d-7500-4900-9c79-4300dd92873e_10914633.jpg
 wwwroot\uploads\a9a35c39-26e8-442f-8921-324153bf8b4e_10914633.jpg
 wwwroot\uploads\ab8015f4-6dbb-44d2-bd9a-2ba30fd90f70_10914633.jpg
+wwwroot\uploads\afda77b3-e78c-4df6-a73a-57261096d667_10th Marksheet.jpg
 wwwroot\uploads\b66e6846-3b76-40f3-adc0-1ea04061b411_10914633.jpg
 wwwroot\uploads\b7d28aa3-4f07-41ff-bd99-a9b47a4c96d4_Aadhar Card_1.jpg
 wwwroot\uploads\b848016b-72c0-4eb5-a656-59ab4f63662d_10914633.jpg
@@ -64,8 +66,10 @@ wwwroot\uploads\d390651c-6a4e-4eca-a8f5-3378c75db153_10914633.jpg
 wwwroot\uploads\d76e7d8c-6e3b-497b-8bdf-9074e7611bc9_10914633.jpg
 wwwroot\uploads\db03481c-9722-4084-94ef-aac05f5ba704_10th Marksheet.jpg
 wwwroot\uploads\dca6767a-fb3e-4ddc-8264-9feac67285d0_10914633.jpg
+wwwroot\uploads\e030a8ff-0ec6-407c-ab16-c20146a9cd71_12th Marksheet.jpg
 wwwroot\uploads\e16da794-a75d-4443-a85a-e4ca0b783323_10914633.jpg
 wwwroot\uploads\ecdd9668-3439-43c5-b265-4fe913ef1b0d_10914633.jpg
+wwwroot\uploads\f12d8d0f-88a1-49da-b7b1-0f411c3c06ff_Aadhar Card_1.jpg
 wwwroot\uploads\f66ed973-3133-4e85-8cf1-586b13e15ec9_Travel_Report (1).pdf
 wwwroot\uploads\f8c18883-18ca-4f0c-a548-224460de499b_10914633.jpg
 wwwroot\uploads\f8d001cd-5e68-4495-8c41-92451d7ebf14_10914633.jpg

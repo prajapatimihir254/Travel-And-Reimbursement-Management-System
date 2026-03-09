@@ -116,10 +116,10 @@
                             <td class="fw-bold text-success">₹@item.EstimatedAmount</td>
                             <td>
                                 <div class="small">
-                                    <span class="text-success fw-bold">Departure Date: @item.TravelDate.ToString("dd-MM-yyyy")</span>
+                                    <span class="text-success fw-bold">Dep: @item.TravelDate.ToString("dd-MM-yyyy")</span>
                                 </div>
                                 <div class="small">
-                                    <span class="text-danger fw-bold">Return Date: @item.ReturnDate.ToString("dd-MM-yyyy")</span>
+                                    <span class="text-danger fw-bold">Ret: @item.ReturnDate.ToString("dd-MM-yyyy")</span>
                                 </div>
                             </td>
 
@@ -145,7 +145,7 @@
                                         </button>
 
                                         <button type="button" onclick="showReasonBox('@item.RequestId')" id="btnReject_@item.RequestId"
-                                                class="btn btn-sm btn-reject">
+                                                class="btn btn-sm btn-reject me-1">
                                             <i class="bi bi-x-lg"></i> Reject
                                         </button>
 

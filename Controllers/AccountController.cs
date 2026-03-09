@@ -1,4 +1,4 @@
-﻿                                                                                                using Azure.Core;
+﻿using Azure.Core;
 using BizTravel.Data;
 using BizTravel.Models;
 using Microsoft.AspNetCore.Identity;
@@ -121,6 +121,10 @@ namespace BizTravel.Controllers
                 //6-digit otp generation
                 string otp = new Random().Next(100000,999999).ToString();
                 user.ResetOTP = otp;
+
+                //current Time Saving
+                user.OTPGenratedTime = DateTime.Now;
+
                 _context.SaveChanges();
 
                 string subject = "Your Otp For Password Reset";
@@ -145,15 +149,32 @@ namespace BizTravel.Controllers
         [HttpPost]
         public async Task<IActionResult> VerifyOTP(string email, string otp, string newPassword)
         {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+
+            //Genration Time From The Session
+            var generatedAtStr = HttpContext.Session.GetString("OTPGeneratedAt");
+
+            if (string.IsNullOrEmpty(generatedAtStr))
+            {
+                ViewBag.Error = "Session Expired. Please Request a New Otp.";
+                return View();
+            }
+            
+            DateTime generatedAt = DateTime.Parse(generatedAtStr);
+            
+            if(DateTime.Now > generatedAt.AddMinutes(2))
+            {
+                ViewBag.Error = "OTP Expired! Please Try Again.";
+                ViewBag.Email = email;
+                return View();
+            }
+
             if (string.IsNullOrEmpty(newPassword) || newPassword.Length < 8)
             {
                 ViewBag.Error = "Password must be 8 characters long";
                 ViewBag.Email = email;
                 return View();
             }
-
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            //var user = _context.Users.FirstOrDefault(u => u.Email == email && u.ResetOTP == otp);
 
             if (user != null)
             {
@@ -167,9 +188,10 @@ namespace BizTravel.Controllers
                 user.Password = newPassword; //update password
                 user.ResetOTP = null; //clear otp for the safety
                 _context.SaveChanges();
+
                 return RedirectToAction("Login", new { msg = "Password Reset Successfully" });
             }
-            ViewBag.Error = "Session Expired or User not found";
+            ViewBag.Error = "User not found";
             return View();
         }
     }

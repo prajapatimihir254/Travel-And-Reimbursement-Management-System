@@ -17,6 +17,17 @@
                 <form asp-action="VerifyOTP" method="post">
                     <input type="hidden" name="email" value="@ViewBag.Email"/>
 
+                    <div class="text-center mt-2">
+                            <span id="timer-label" class="text-muted small">OTP expires in:</span>
+                            <span id="countdown" class="fw-bold text-danger">02:00</span>
+                    </div>
+
+                        <div id="resend-link" class="text-center mt-2" style="display:none;">
+                        <p class="small text-muted">Didn't recive OTP ?
+                                <a href=/Account/ForgotPassword class="text-primary fw-bold text-decoration-none">Resend OTP</a>
+                        </p>
+                    </div> 
+
                     <div class="mb-3">
                         <label class="form-label fw-600">Enter 6-Digit OTP</label>
                         <input type="text" name="otp" class="form-control form-control-lg text-center fw-bold" maxlength="6" required style="letter-spacing: 5px;"/>
@@ -43,3 +54,32 @@
     </div>
 </div>
 </div>
+
+@section Scripts{
+    <script>
+        //timer for 2 minute
+        let timeLeft = 120;
+        const downloadTimer = setInterval(function(){
+            if(timeLeft <=0 ){
+                clearInterval(downloadTimer);
+                document.getElementById("countdown").innerHTML = "Expired";
+                document.getElementById("timer-label").style.display = "none";
+
+                //send new link after the timer end
+                document.getElementById("resend-link").style.display = "block";
+
+                //input button disable for security
+                document.getElementById("otp")[0].disabled = true;
+            }
+            else{
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+
+                //formating seconds and mintue
+                seconds = seconds < 10 ? '0'+ seconds : seconds;
+                document.getElementById("countdown").innerHTML = `0${minutes}:${seconds}`;
+            }
+            timeLeft -= 1;
+        },1000);
+    </script>
+}

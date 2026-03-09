@@ -33,5 +33,7 @@ namespace BizTravel.Models
         [Required(ErrorMessage = "Role Is Required")]
         public string? Role { get; set; } //Admin,Employee,Manager,Accountant
         public string? ResetOTP { get; set; }
+
+        public DateTime OTPGenratedTime { get; set; }
     }
 }
