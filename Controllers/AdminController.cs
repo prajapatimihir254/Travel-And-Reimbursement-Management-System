@@ -19,6 +19,14 @@ namespace BizTravel.Controllers
 
         public IActionResult Index()
         {
+            var activeCount = _context.Users.Count(u => u.Role == "Employee" && u.IsActive == true);
+            var inactiveCount = _context.Users.Count(u => u.Role == "Employee" && u.IsActive == false);
+
+
+            //send data to the view
+            ViewBag.ActiveEmployee = activeCount;
+            ViewBag.InactiveEmployee = inactiveCount;
+
             //4 cards at dashboard
             var stats = new AdminDashboardVM();
 
@@ -97,6 +105,18 @@ namespace BizTravel.Controllers
                 }
             }
             return View(newUser);
+        }
+
+        [HttpPost]
+        public IActionResult ToggleUserStatus(int userId)
+        {
+            var user = _context.Users.Find(userId);
+            if(user != null)
+            {
+                user.IsActive = !user.IsActive;    
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
 
         public IActionResult DownloadReport()

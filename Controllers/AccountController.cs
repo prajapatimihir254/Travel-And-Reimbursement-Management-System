@@ -68,9 +68,17 @@ namespace BizTravel.Controllers
                 if (user != null)
                 {
                     var passwordHasher = new PasswordHasher<ApplicationUser>();
+                    
                     //check the sql dummy deta from sql
                     if (user.Password == password || passwordHasher.VerifyHashedPassword(user,user.Password,password) == PasswordVerificationResult.Success)
                     {
+                        //check the user is active or not?
+                        if(user.IsActive == true)
+                        {
+                            ViewBag.Error = "Your Account Is De-Activated. Please Contact Admin.";
+                            return View();
+                        }
+
                         HttpContext.Session.SetString("UserEmail", user.Email);
                         HttpContext.Session.SetString("EmployeeID", user.EmployeeID);
                         HttpContext.Session.SetString("Username", user.Fullname);

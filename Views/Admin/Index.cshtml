@@ -236,6 +236,8 @@
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Department</th>
+                                <th>Status</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -267,6 +269,35 @@
                                         }
                                     </td>
                                     <td>@user.Department</td>
+                                    <td>
+                                        @if (user.IsActive)
+                                        {
+                                            <span class="badge bg-danger-subtle text-danger border border-danger px-3">De-activated</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-success-subtle text-success border border-success px-3">Active</span>
+                                        }
+                                    </td>
+                                    <td class="text-center">
+                                        <form asp-action="ToggleUserStatus" method="post">
+                                            <input type="hidden" name="userId" value="@user.Id" />
+
+                                            @if (user.IsActive)
+                                            {
+                                                <button type="submit" class="btn btn-sm btn-success rounded-pill px-3">
+                                                    <i class="bi bi-person-check-fill"></i> Re-activate
+                                                </button>
+
+                                            }
+                                            else
+                                            {
+                                                <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3">
+                                                    <i class="bi bi-person-x-fill"></i> De-activate
+                                                </button>
+                                            }
+                                        </form>
+                                    </td>
                                 </tr>
                             }
                         </tbody>

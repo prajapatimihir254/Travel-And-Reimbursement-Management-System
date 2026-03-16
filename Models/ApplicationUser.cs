@@ -35,5 +35,7 @@ namespace BizTravel.Models
         public string? ResetOTP { get; set; }
 
         public DateTime OTPGenratedTime { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
