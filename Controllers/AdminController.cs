@@ -4,6 +4,10 @@ using BizTravel.Models;
 using Microsoft.AspNetCore.Identity;
 using Rotativa.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using ClosedXML.Excel;
+using System.IO;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Drawing.Charts;
 
 namespace BizTravel.Controllers
 {
@@ -144,6 +148,58 @@ namespace BizTravel.Controllers
                 PageOrientation  = Rotativa.AspNetCore.Options.Orientation.Portrait,
                 CustomSwitches = "--print-media-type --no-background",
             };
+        }
+        public IActionResult DownloadExcelReport()
+        {
+            //fetch data from database 
+            var data = _context.TravelRequest.ToList();
+
+            //create new workbook
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Travel Reports");
+                var currentRow = 1;
+
+                //set headers for the worksheet
+                worksheet.Cell(currentRow, 1).Value = "Request ID";
+                worksheet.Cell(currentRow, 2).Value = "Employee Email";
+                worksheet.Cell(currentRow, 3).Value = "Destination";
+                worksheet.Cell(currentRow, 4).Value = "Purpose";
+                worksheet.Cell(currentRow, 5).Value = "Amount";
+                worksheet.Cell(currentRow, 6).Value = "Status";
+
+                //Header style
+                var headerrange = worksheet.Range("A1:F1");
+                headerrange.Style.Font.Bold = true;
+                headerrange.Style.Fill.BackgroundColor = XLColor.BabyBlue;
+
+                //fill data rows
+                foreach (var item in data) 
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = item.RequestId;
+                    worksheet.Cell(currentRow, 2).Value = item.EmployeeEmail;
+                    worksheet.Cell(currentRow, 3).Value = item.City + " " + item.State;
+                    worksheet.Cell(currentRow, 4).Value = item.Purpose;
+                    worksheet.Cell(currentRow, 5).Value = item.EstimatedAmount;
+                    worksheet.Cell(currentRow, 6).Value = item.Status;
+                }
+                //column auto-adjust 
+                worksheet.Columns().AdjustToContents();
+
+                //file download(stream)
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "TravelReport_" + DateTime.Now.ToString("yyyyMMdd") + ".xlsx");
+                }
+            }
+
         }
 
         public IActionResult Logout()

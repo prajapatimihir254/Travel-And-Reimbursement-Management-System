@@ -158,9 +158,15 @@
 
     <div class="dashboard-header">
         <h2 class="page-title">Admin Dashboard 🛡️</h2>
+
+        <div class="d-flex gap-2">
         <a asp-action="DownloadReport" class="btn btn-download shadow">
-            <i class="bi bi-file-earmark-pdf-fill me-2"></i> Download Report
+            <i class="bi bi-file-earmark-pdf-fill me-2"></i> Download PDF
         </a>
+        <a asp-action="DownloadExcelReport" class="btn btn-download shadow">
+            <i class="bi bi-file-earmark-excel-fill me-2"></i> Download Excel
+        </a>
+        </div>
     </div>
 
     <div class="row g-4 mb-5">
