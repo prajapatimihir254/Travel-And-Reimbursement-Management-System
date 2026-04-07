@@ -14,6 +14,9 @@ wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\Rotativa\wkhtmltopdf.exe
+wwwroot\uploads\02535d53-b1cd-4c9e-bedb-c775cd183d96_bill.png
+wwwroot\uploads\02e849a5-e9d6-401c-8a95-337af3e1fea3_invoice_1242244_page-0001.jpg
+wwwroot\uploads\0396537b-8601-4929-a87e-3758a2ba8887_bill.png
 wwwroot\uploads\0bf2a8c8-d2cb-4feb-9641-23b3a06c519e_10914633.jpg
 wwwroot\uploads\0c6f7b84-5ae3-4f84-84a9-795b2075be34_signature.jpg
 wwwroot\uploads\0eacd5ce-65b4-40cc-92fb-f3dc1b4678e1_signature.jpg
@@ -21,21 +24,31 @@ wwwroot\uploads\0faad093-69f4-4b8e-9ee3-66f092e6b733_10914633.jpg
 wwwroot\uploads\12a28494-d0bb-4e86-99b4-d31534270380_10914633.jpg
 wwwroot\uploads\15a5e56b-c5ca-48c1-a194-9a86992bc4c5_10914633.jpg
 wwwroot\uploads\16ca8e4e-b78e-4c74-b2fa-3be7b3e604d6_10914633.jpg
+wwwroot\uploads\1743f23d-c1f5-4b0b-b53a-8ddf60bb9746_bill.png
 wwwroot\uploads\174d6ac8-c384-4996-b08f-c4c77fb196bc_signature.jpg
+wwwroot\uploads\197aafc2-f912-4399-bc96-c5785466c861_bill.png
+wwwroot\uploads\1f2e9bae-4173-45a3-ae08-c914e2b3c755_bill.png
 wwwroot\uploads\1f412898-2f26-404a-8f07-e98a2402aa34_10914633.jpg
 wwwroot\uploads\20add6aa-e943-45e4-80e6-80098a4a9d61_10914633.jpg
 wwwroot\uploads\274ea18c-8d7c-422e-b7de-faf9b4cba0e8_10914633.jpg
 wwwroot\uploads\2c9f772a-c7f0-481d-a3e3-71c66e722d29_10914633.jpg
+wwwroot\uploads\2f35aee5-33f6-46c7-8532-67d61d6b2540_bill 2.png
 wwwroot\uploads\31ae415b-fac0-4a59-b7cf-c434ee355a02_10914633.jpg
+wwwroot\uploads\415ba714-0d97-482a-ae65-c878bb67564e_bill.png
 wwwroot\uploads\41e780b0-9440-4a65-9ef2-44d7acd5dc86_10914633.jpg
 wwwroot\uploads\443223c1-211d-4d50-845b-a016d13c7ea3_Mihir Prajapati-Resume.pdf
+wwwroot\uploads\4500e9e4-0b9c-4520-ad87-f88a837aaa99_bill 2.png
+wwwroot\uploads\4a4e1ed9-8342-453d-984f-95f86427148a_bill 2.png
 wwwroot\uploads\4bb4e218-a7d7-4f25-ab53-14ad87c74b72_10914633.jpg
 wwwroot\uploads\5a874227-3049-4c8f-b573-d17f1c1c51f6_signature.jpg
 wwwroot\uploads\5cb4b057-81b5-44f5-9e64-4ea246903b5c_10914633.jpg
+wwwroot\uploads\621f57bd-7e7b-44b8-a9f6-aa2cdc731c80_bill 2.png
 wwwroot\uploads\65f2d6ce-9640-4d66-924e-e81d2d5fde14_10914633.jpg
 wwwroot\uploads\66f29989-e629-473c-82a2-d08840345e6a_10914633.jpg
+wwwroot\uploads\697a6c03-4cad-4250-bda7-b3f5912f5f60_bill 2.png
 wwwroot\uploads\69f4e7c2-02c5-4a64-ba96-d5968fb15c5f_10914633.jpg
 wwwroot\uploads\6d419125-34fc-4be9-8c31-7314e3f5dff8_10914633.jpg
+wwwroot\uploads\7035db3a-d690-4480-89e1-23c971a139bd_invoice_1242244_page-0001.jpg
 wwwroot\uploads\750373aa-88fe-4d81-85a5-6a49421fcf5d_10914633.jpg
 wwwroot\uploads\78005b76-4dab-40a1-ba8b-4d3eaa4cd2cc_10914633.jpg
 wwwroot\uploads\788c0243-f64d-4ab2-ba8f-7a0e99c29c0a_10914633.jpg
@@ -46,6 +59,7 @@ wwwroot\uploads\839aaa49-4cb7-4355-b699-b8a3e15046c0_WhatsApp Image 2025-09-07 a
 wwwroot\uploads\83b9f9b5-48b5-4750-856c-27422a04f852_10914633.jpg
 wwwroot\uploads\8962d106-cf1f-4181-a007-92c515ca45d3_10914633.jpg
 wwwroot\uploads\8ad55c15-b1fa-46c5-91f4-2470938edc5b_10914633.jpg
+wwwroot\uploads\93d6e166-8472-4e68-9b73-b36e01d7cd13_bill 2.png
 wwwroot\uploads\97d42f70-fb2e-44b6-b095-496e2ee03622_10914633.jpg
 wwwroot\uploads\98afb829-47cc-4303-97a3-8e766c88ee37_10914633.jpg
 wwwroot\uploads\9dd357e5-43b5-4402-87c8-9ae4d36c0745_10914633.jpg
@@ -53,22 +67,32 @@ wwwroot\uploads\a61f8db6-c1c5-4a62-842a-cc7064dd97b3_10914633.jpg
 wwwroot\uploads\a80f1eda-fe3b-41cd-a6e3-f17945e9741c_10914633.jpg
 wwwroot\uploads\a859113d-7500-4900-9c79-4300dd92873e_10914633.jpg
 wwwroot\uploads\a9a35c39-26e8-442f-8921-324153bf8b4e_10914633.jpg
+wwwroot\uploads\ab316bea-89fb-41c7-928e-e77e09114e41_Gemini_Generated_Image_wptabjwptabjwpta.png
 wwwroot\uploads\ab8015f4-6dbb-44d2-bd9a-2ba30fd90f70_10914633.jpg
 wwwroot\uploads\afda77b3-e78c-4df6-a73a-57261096d667_10th Marksheet.jpg
+wwwroot\uploads\b122a4bb-1f6c-449d-a1df-ee99febecba9_Gemini_Generated_Image_3bbji23bbji23bbj (1).png
 wwwroot\uploads\b66e6846-3b76-40f3-adc0-1ea04061b411_10914633.jpg
 wwwroot\uploads\b7d28aa3-4f07-41ff-bd99-a9b47a4c96d4_Aadhar Card_1.jpg
 wwwroot\uploads\b848016b-72c0-4eb5-a656-59ab4f63662d_10914633.jpg
+wwwroot\uploads\b8789bd2-925e-4b8c-a759-fcd4b832b5a2_Gemini_Generated_Image_2szxcr2szxcr2szx.png
 wwwroot\uploads\bbaa06e2-a80d-4ded-95f1-9a7d1a0338bd_PassPort Size Mihir.jpg
+wwwroot\uploads\bd5e2932-253a-45d4-a341-cc9c9cc8f858_bill 2.png
+wwwroot\uploads\c04518c0-c156-42fc-a1d8-10e26d79a4de_bill.png
+wwwroot\uploads\c2ee3e54-00f4-4b6e-817e-03e5447dc0be_bill.png
 wwwroot\uploads\c381f522-9e12-41ee-8dad-b1886f984184_10914633.jpg
 wwwroot\uploads\cd518783-8a3d-4b4f-8b5b-4b7f1d37c292_10914633.jpg
 wwwroot\uploads\cfb4d846-af3f-4386-89fb-4f038ecafcbb_10914633.jpg
 wwwroot\uploads\d390651c-6a4e-4eca-a8f5-3378c75db153_10914633.jpg
+wwwroot\uploads\d3b49f25-6331-4111-8756-d738117596ce_bill 2.png
 wwwroot\uploads\d76e7d8c-6e3b-497b-8bdf-9074e7611bc9_10914633.jpg
 wwwroot\uploads\db03481c-9722-4084-94ef-aac05f5ba704_10th Marksheet.jpg
 wwwroot\uploads\dca6767a-fb3e-4ddc-8264-9feac67285d0_10914633.jpg
 wwwroot\uploads\e030a8ff-0ec6-407c-ab16-c20146a9cd71_12th Marksheet.jpg
+wwwroot\uploads\e0d28cac-2e1e-4b5f-a90e-aa5e4ba35cc4_A5-GST-Invoice-Format_page-0001.jpg
 wwwroot\uploads\e16da794-a75d-4443-a85a-e4ca0b783323_10914633.jpg
+wwwroot\uploads\eacbcacd-c064-4665-8a3a-24ae4ab264be_bill.png
 wwwroot\uploads\ecdd9668-3439-43c5-b265-4fe913ef1b0d_10914633.jpg
+wwwroot\uploads\ef070d39-b330-427e-b571-c457a8d4c000_bill 2.png
 wwwroot\uploads\f12d8d0f-88a1-49da-b7b1-0f411c3c06ff_Aadhar Card_1.jpg
 wwwroot\uploads\f66ed973-3133-4e85-8cf1-586b13e15ec9_Travel_Report (1).pdf
 wwwroot\uploads\f8c18883-18ca-4f0c-a548-224460de499b_10914633.jpg

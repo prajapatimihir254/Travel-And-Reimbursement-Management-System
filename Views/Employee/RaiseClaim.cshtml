@@ -125,12 +125,13 @@
                                 </div>
 
                             <div class="col-md-6 mb-4">
-                                <label class="form-label">Estimated Cost</label>
+                                <label class="form-label">Total Amount (Auto-Scanned)</label>
                                 <div class="input-group">
                                     <span class="input-group-text fw-bold">₹</span>
-                                    <input asp-for="EstimatedAmount" type="number" class="form-control" id="amtInput" placeholder="0.00" />
+                                    <input asp-for="EstimatedAmount" type="number" class="form-control" id="amtInput" readonly value="0" placeholder="0.00" />
                                 </div>
-                                <span asp-validation-for="EstimatedAmount" class="text-danger small"></span>
+                                @* <span asp-validation-for="EstimatedAmount" class="text-danger small"></span> *@
+                                <small class="text-muted">Amount Will Be Calculated Automatically After Scanning Bill</small>
                             </div>
                         </div>
 
@@ -190,7 +191,7 @@
                                 <label class="form-label">City</label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-                                    <select id="citySelect" asp-for="City" class="form-select">
+                                    <select id="citySelect" asp-for="City" data-val="false" class="form-select">
                                         <option value="">-- Select City --</option>
                                     </select>
                                 </div>
@@ -210,11 +211,12 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="form-label">Upload Proof (Bill/Ticket)</label>
+                            <label class="form-label">Upload Bills (Select Multiple)</label>
                             <div class="file-upload-wrapper">
                                 <i class="bi bi-cloud-arrow-up display-6 text-primary mb-2"></i>
-                                <input type="file" name="billFile" class="form-control" accept=".jpg,.jpeg,.pdf" required />
-                                <small class="text-muted d-block mt-2">Supported formats: JPEG, PDF (Max 5MB)</small>
+                                <input type="file" name="billFiles" id="billFiles" class="form-control" accept=".jpg,.jpeg,.pdf,.png" multiple required />
+                                <div id="fileList" class="mt-2 small text-muted">No Files Selected</div>
+                                <small class="text-muted d-block mt-2">Supported formats: JPEG, PDF, PNG (Max 5MB)</small>
                             </div>
                         </div>
 

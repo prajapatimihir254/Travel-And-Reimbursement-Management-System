@@ -1,4 +1,4 @@
-﻿using BizTravel.Data;
+﻿    using BizTravel.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Build.ObjectModelRemoting;
@@ -26,7 +26,10 @@ namespace BizTravel.Controllers
             //return View(allRequests);
 
             //show only pending request
-            var PendingRequests = _context.TravelRequest.Where(r => r.Status == "Pending").ToList();
+            var PendingRequests = _context.TravelRequest
+                                          .Where(r => r.Status == "Pending")
+                                          .OrderByDescending(r => r.RequestId)
+                                          .ToList();
             return View(PendingRequests);
         }
         [HttpPost]

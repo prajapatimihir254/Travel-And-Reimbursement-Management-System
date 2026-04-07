@@ -250,7 +250,7 @@
                                 </td>
 
                                 <td>
-                                    <button type="button" class="btn-view" onclick="showBill('@item.BillFilePath')">
+                                <button type="button" class="btn-view" onclick="showMultipleBills('@item.BillFilePath')">
                                         <i class="bi bi-eye"></i> View
                                     </button>
                                 </td>
@@ -305,36 +305,30 @@
 
 @section Scripts {
     <script>
-        function showBill(path)
-        {
-            console.log("Path Recived:" + path);
+        function showMultipleBills(pathString) {
             var content = document.getElementById('billContent');
+            content.innerHTML = ""; // Purana content saaf karein
 
-            if(!path || path === "" || path === "null")
-            {
-                content.innerHTML = "<div class = 'alert alert-warming'>No Bill Uploaded By Employee</div>"
-            }
-            else
-            {
-                if(path.toLowerCase().endsWith('.pdf'))
-                {
-                    content.innerHTML = `<embed src = "${path}" type = "application/pdf" width="100%" height="500px">`;
-                }
-                else
-                {
-                    content.innerHTML = `<img src = "${path}" class="img-fluid rounded shadow" style = "max-height:500px;">`;
-                }
+            if (!pathString || pathString === "" || pathString === "null") {
+                content.innerHTML = "<div class='alert alert-warning'>No Bill Uploaded By Employee</div>";
+            } else {
+                // Semicolon se paths ko alag karein
+                var paths = pathString.split(';');
+
+                paths.forEach(function(path) {
+                    if (path.trim() !== "") {
+                        if (path.toLowerCase().endsWith('.pdf')) {
+                            content.innerHTML += `<embed src="${path}" type="application/pdf" width="100%" height="400px" class="mb-3">`;
+                        } else {
+                            content.innerHTML += `<img src="${path}" class="img-fluid rounded shadow mb-3" style="max-height:400px; display:block; margin:auto;">`;
+                        }
+                    }
+                });
             }
 
             var modalElement = document.getElementById('billModal');
-            if(modalElement)
-            {
-                var myModal = new bootstrap.Modal(modalElement);
-                myModal.show();
-            }
-            else{
-                console.error("Modal element 'billModal' not found in html");
-            }
+            var myModal = new bootstrap.Modal(modalElement);
+            myModal.show();
         }
     </script>
     <script>

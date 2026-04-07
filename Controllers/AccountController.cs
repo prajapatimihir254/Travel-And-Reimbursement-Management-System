@@ -132,7 +132,7 @@ namespace BizTravel.Controllers
 
                 //current Time Saving
                 user.OTPGenratedTime = DateTime.Now;
-
+                HttpContext.Session.SetString("OTPGenratedAt", DateTime.Now.ToString());
                 _context.SaveChanges();
 
                 string subject = "Your Otp For Password Reset";
@@ -159,48 +159,42 @@ namespace BizTravel.Controllers
         {
             var user = _context.Users.FirstOrDefault(u => u.Email == email);
 
-            //Genration Time From The Session
-            var generatedAtStr = HttpContext.Session.GetString("OTPGeneratedAt");
-
-            if (string.IsNullOrEmpty(generatedAtStr))
+            if (user == null)
             {
-                ViewBag.Error = "Session Expired. Please Request a New Otp.";
+                ViewBag.Error = "User not found";
                 return View();
             }
-            
-            DateTime generatedAt = DateTime.Parse(generatedAtStr);
-            
-            if(DateTime.Now > generatedAt.AddMinutes(2))
+
+            // Session ki jagah Database se time check karo (Zyada Reliable)
+            if (user.OTPGenratedTime == null || DateTime.Now > user.OTPGenratedTime.AddMinutes(2))
             {
-                ViewBag.Error = "OTP Expired! Please Try Again.";
+                ViewBag.Error = "OTP Expired! Please Request a New Otp.";
                 ViewBag.Email = email;
                 return View();
             }
 
+            // OTP match check
+            if (user.ResetOTP != otp)
+            {
+                ViewBag.Error = "Wrong Otp! Please Check Your Email.";
+                ViewBag.Email = email;
+                return View();
+            }
+
+            // Password Update Logic
             if (string.IsNullOrEmpty(newPassword) || newPassword.Length < 8)
             {
-                ViewBag.Error = "Password must be 8 characters long";
+                ViewBag.Error = "Password must be at least 8 characters long";
                 ViewBag.Email = email;
                 return View();
             }
 
-            if (user != null)
-            {
-                if(user.ResetOTP != otp)
-                {
-                    ViewBag.Error = "Wrong Otp! Please Check Your Email And Try Again";
-                    ViewBag.Email = email;
-                    return View();
-                }
+            user.Password = newPassword;
+            user.ResetOTP = null;
+            user.OTPGenratedTime = DateTime.MinValue; // Clear time as well
+            _context.SaveChanges();
 
-                user.Password = newPassword; //update password
-                user.ResetOTP = null; //clear otp for the safety
-                _context.SaveChanges();
-
-                return RedirectToAction("Login", new { msg = "Password Reset Successfully" });
-            }
-            ViewBag.Error = "User not found";
-            return View();
+            return RedirectToAction("Login", new { msg = "Password Reset Successfully" });
         }
     }
 }

@@ -10,5 +10,6 @@ namespace BizTravel.Data
         //To join sql User to C#
         public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<TravelRequest> TravelRequest { get; set; }
+        public DbSet<RequestBill> RequestBills { get; set; }
     }
 }

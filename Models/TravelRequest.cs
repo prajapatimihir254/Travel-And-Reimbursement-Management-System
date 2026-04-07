@@ -21,12 +21,12 @@ namespace BizTravel.Models
         [Required(ErrorMessage = "Purpose Is Required")]
         public string? Purpose { get; set; }
 
-        [Required(ErrorMessage = "Please Enter The Estimated Amount")]
-        [Range(100,10000000,ErrorMessage = "Amount Must Be Between 100 and 10,00,000")]
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18,2)")] 
+        //[Required(ErrorMessage = "Please Enter The Estimated Amount")]
+        //[Range(100,10000000,ErrorMessage = "Amount Must Be Between 100 and 10,00,000")]
+        //[DataType(DataType.Currency)]
+        //[Column(TypeName = "decimal(18,2)")] 
 
-        public decimal EstimatedAmount { get; set; }
+        public decimal? EstimatedAmount { get; set; }
         public string Status { get; set; } = "Pending";
 
 
