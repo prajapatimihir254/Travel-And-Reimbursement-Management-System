@@ -4,6 +4,7 @@ using BizTravel.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BizTravel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260407023320_AddPaymentDetails")]
+    partial class AddPaymentDetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,36 +72,30 @@ namespace BizTravel.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BizTravel.Models.PaymentDetails", b =>
+            modelBuilder.Entity("BizTravel.Models.RequestBill", b =>
                 {
-                    b.Property<int>("PaymentId")
+                    b.Property<int>("BillId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BillId"));
 
-                    b.Property<decimal>("AmountPaid")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PaymentMode")
+                    b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RequestId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TransactionId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("ScannedAmount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("PaymentId");
+                    b.Property<DateTime>("UploadedDate")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("RequestId");
+                    b.HasKey("BillId");
 
-                    b.ToTable("PaymentDetails");
+                    b.ToTable("RequestBills");
                 });
 
             modelBuilder.Entity("BizTravel.Models.TravelRequest", b =>
@@ -153,17 +150,6 @@ namespace BizTravel.Migrations
                     b.HasKey("RequestId");
 
                     b.ToTable("TravelRequest");
-                });
-
-            modelBuilder.Entity("BizTravel.Models.PaymentDetails", b =>
-                {
-                    b.HasOne("BizTravel.Models.TravelRequest", "TravelRequest")
-                        .WithMany()
-                        .HasForeignKey("RequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TravelRequest");
                 });
 #pragma warning restore 612, 618
         }

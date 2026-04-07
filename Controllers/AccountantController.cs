@@ -29,7 +29,7 @@ namespace BizTravel.Controllers
             return View(ApprovedRequests);
         }
         [HttpPost]
-        public async Task<IActionResult> SettleClaim(int requestId,decimal finalAmount)
+        public async Task<IActionResult> SettleClaim(int requestId,decimal finalAmount, string paymentMode,string transId)
         {   
             var request = _context.TravelRequest.Find(requestId);
             if (request != null)
@@ -37,6 +37,18 @@ namespace BizTravel.Controllers
                 request.Status = "Settled"; //when the payment is settled
                 request.FinalAmount = finalAmount; //save final amount
                 _context.SaveChanges();
+
+                //new payment details
+                var payment = new BizTravel.Models.PaymentDetails
+                {
+                    RequestId = requestId,
+                    PaymentMode = paymentMode,
+                    TransactionId = transId,
+                    AmountPaid = finalAmount,
+                    PaymentDate = DateTime.Now
+                };
+                _context.PaymentDetails.Add(payment);
+                await _context.SaveChangesAsync();
 
                 //send notification to employee
                 string subject = "Trip Settled: Payment Processed";

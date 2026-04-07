@@ -184,7 +184,7 @@
                                 </button>
                             </td>
 
-                            <td class="action-col">
+                            @* <td class="action-col">
                                 @if (item.Status == "Settled")
                                 {
                                     <span class="text-muted small"><i class="bi bi-lock-fill"></i>Already Settled</span>
@@ -202,6 +202,19 @@
                                         <button type="submit" class="btn btn-sm settle-btn shadow-sm">Pay
                                         </button>
                                     </form>
+                                }
+                            </td> *@
+                            <td class="action-col text-center">
+                                @if (item.Status == "Settled")
+                                {
+                                    <span class="text-muted small"><i class="bi bi-lock-fill"></i>Settled</span>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-sm settle-btn shadow-sm"
+                                        onclick="openSettleModal('@item.RequestId','@item.EstimatedAmount')">
+                                        <i class="bi bi-cash-coin me-1"></i> Settle
+                                    </button>
                                 }
                             </td>
                         </tr>
@@ -237,6 +250,49 @@
     </div>
 </div>
 
+<div class="modal fade" id="settleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title fw-bold"><i class="bi bi-credit-card-2-front me-2"></i>Process Payment</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form asp-action="SettleClaim" method="post">
+                <div class="modal-body p-4">
+                    <input type="hidden" name="requestId" id="modalRequestId" />
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Final Amount</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">₹</span>
+                            <input type="number" name="finalAmount" id="modalAmount" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Payment Mode</label>
+                        <select name="paymentMode" class="form-select" required>
+                            <option value="">-- Select Mode --</option>
+                            <option value="UPI">UPI (GPay/PhonePe)</option>
+                            <option value="Net Banking">Net Banking (NEFT/IMPS)</option>
+                            <option value="Cash">Cash</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Transaction ID / Reference</label>
+                        <input type="text" name="transId" class="form-control" placeholder="Enter Ref No." required />
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success btn-sm px-4 fw-bold">Confirm Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script>
         function showMultipleBills(pathString) {
@@ -263,6 +319,15 @@
             var modalElement = document.getElementById('billModal');
             var myModal = new bootstrap.Modal(modalElement);
             myModal.show();
+        }
+    </script>
+    <script>
+        function openSettleModal(id,amount){
+            document.getElementById('modalRequestId').value = id;
+            document.getElementById('modalAmount').value = amount;
+
+            var settleModal = new bootstrap.Modal(document.getElementById('settleModal'));
+            settleModal.show();
         }
     </script>
 }
